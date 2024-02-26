@@ -18,4 +18,8 @@ class HomeController extends Controller
     {
         return view('index');
     }
+    public function generate()
+    {
+        return view('generate');
+    }
 }
