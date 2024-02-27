@@ -19,7 +19,11 @@
 @if(session('toastr'))
 {!! session('toastr') !!}
 @endif
-
+<style>
+    body{
+        background: #fff;
+    }
+</style>
 <section class="main-area">
     <div class="container">
         <div class="row">
@@ -51,7 +55,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-9">
                 <div class="subscriptions">
                     <h3>My Subscription</h3>
                     <div class="subscription-tabs">
@@ -63,10 +67,34 @@
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-    
+                                <div class="active-sub">
+                                    <div class="left">
+                                        <h3>Daily Workout Subscription</h3>
+                                        <span class="start-date"><b>Subscription Date :</b> 1 Jan, 2024 2:40 PM </span>
+                                        <span class="end-date"><b>Subscription End Date :</b> 8 June, 2024  </span>
+                                        <button class="btn btn-cancel">Cancel</button>
+                                    </div>
+                                    <div class="right">
+                                        <span class="total">Total : $20.00</span>
+                                        <span class="status"><b>Status :</b> Subscribed</span>
+                                        <span class="payment-method"><b>Payment Method :</b> Card</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                                
+                            <div class="active-sub">
+                                    <div class="left">
+                                        <h3>Daily Workout Subscription</h3>
+                                        <span class="start-date"><b>Subscription Date :</b> 1 Jan, 2024 2:40 PM </span>
+                                        <span class="end-date"><b>Subscription End Date :</b> 8 June, 2024  </span>
+                                        <button class="btn btn-cancel">ReActive</button>
+                                    </div>
+                                    <div class="right">
+                                        <span class="total">Total : $20.00</span>
+                                        <span class="status"><b>Status :</b> Cancelled</span>
+                                        <span class="payment-method"><b>Payment Method :</b> Card</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

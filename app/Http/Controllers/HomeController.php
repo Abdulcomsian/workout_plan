@@ -38,4 +38,8 @@ class HomeController extends Controller
     {
         return view('subscription');
     }
+    public function profile()
+    {
+        return view('profile');
+    }
 }

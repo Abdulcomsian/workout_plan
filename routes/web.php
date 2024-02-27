@@ -34,4 +34,5 @@ Route::get('login', [HomeController::class, 'login'])->name('login');
 Route::get('signup', [HomeController::class, 'signup'])->name('signup');
 Route::get('payment', [HomeController::class, 'payment'])->name('payment');
 Route::get('subscription', [HomeController::class, 'subscription'])->name('subscription');
+Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 
