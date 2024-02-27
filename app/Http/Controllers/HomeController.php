@@ -22,4 +22,20 @@ class HomeController extends Controller
     {
         return view('generate');
     }
+    public function login()
+    {
+        return view('login');
+    }
+    public function signup()
+    {
+        return view('signup');
+    }
+    public function payment()
+    {
+        return view('payment');
+    }
+    public function subscription()
+    {
+        return view('subscription');
+    }
 }

@@ -30,4 +30,8 @@ Route::get('/', function () {
 
 Route::get('index', [HomeController::class, 'index'])->name('index');
 Route::get('generate', [HomeController::class, 'generate'])->name('generate');
+Route::get('login', [HomeController::class, 'login'])->name('login');
+Route::get('signup', [HomeController::class, 'signup'])->name('signup');
+Route::get('payment', [HomeController::class, 'payment'])->name('payment');
+Route::get('subscription', [HomeController::class, 'subscription'])->name('subscription');
 
