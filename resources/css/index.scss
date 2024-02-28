@@ -32,9 +32,14 @@ section.main-area{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         padding: 25px;
         border-radius: 10px;
+        p{
+            line-height: 27px;
+            margin: 0;
+        }
     }
     .setting-widget{
         margin-top: 20px;
+        margin-bottom: 20px;
         background: #fff;
         padding: 25px;
         border-radius: 5px;
@@ -134,6 +139,7 @@ section.main-area{
             box-shadow: 0px 2px 10px 0px #0000001A;
             border-radius: 7px;
             padding-bottom: 30px;
+            margin-bottom: 25px;
             .widget-header{
                 background: $primary;
                 border-top-left-radius: 7px;
@@ -333,20 +339,17 @@ section.main-area{
             position: relative;
             color: #979797;
             text-align: center;
+            span{
+                background-color: #fff;
+                padding: 0 15px;
+                z-index: 999;
+                position: relative;
+            }
             &:before{
                 content: '';
                 position: absolute;
-                width: 33%;
+                width: 100%;
                 left: 0;
-                height: 2px;
-                top: 50%;
-                background: #C8CFD9;
-            }
-            &:after{
-                content: '';
-                position: absolute;
-                width: 33%;
-                right: 0;
                 height: 2px;
                 top: 50%;
                 background: #C8CFD9;
@@ -367,7 +370,7 @@ section.main-area{
             .card-check{
                 .pay-option{
                     padding: 15px;
-                    width: 49%;
+                    width: 100%;
                     border: 2px solid #D9D9D9;
                     display:inline-block;
                     border-radius: 5px;
@@ -419,6 +422,7 @@ section.main-area{
         }
     }
     .welcome{
+        margin-bottom: 30px;
         h3{
             padding-left: 15px;
             border-left: 5px solid $primary;
@@ -542,4 +546,68 @@ section.main-area{
             }
         }
     }
+}
+.form-check-input:checked{
+    background-color: $primary !important;
+    border-color: $primary !important;
+    box-shadow: none !important;
+}
+.form-check-input:focus{
+    box-shadow: none !important;
+}
+input{
+    &:focus,:active,:visited{
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: $primary !important;
+    }
+}
+select{
+    &:focus,:active,:visited{
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: $primary !important;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    section.main-area .routine-widget table thead tr th:last-child{
+        width: 50% !important; 
+    }
+}
+@media screen and (max-width: 450px) {
+    section.main-area {
+        .action-bar{
+            display: flow-root;
+            .btn-group-right{
+                margin-top: 15px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 900px) {
+    section.main-area {
+        .back-bar{
+            padding: 0;
+            margin-bottom: 25px;
+        }
+    }
+    section.main-area {
+        .welcome {
+            ul{
+                margin-top: 15px;
+            }
+        }
+    }
+    // section.main-area {
+    //     .subscriptions {
+    //         .subscription-tabs {
+    //             .tab-content {
+    //                 .active-sub{
+    //                     display: flow-root;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }

@@ -23,7 +23,7 @@
 <section class="main-area">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-5">
+            <div class="col-lg-8 col-xl-5 col-md-10">
                 <div class="login-sec">
                     <div class="logo text-center">
                         <img src="{{ URL::asset('build/images/logo.svg') }}" alt="">
@@ -31,12 +31,12 @@
                     <h3 class="text-center">Get Started With MyWorkout!</h3>
                     <p class="text-center">Sign up to get daily workout routines texted to you.</p>
                     <form>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
                                 <label class="form-label">First Name*</label>
                                 <input type="text" class="form-control" placeholder="Your first name">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-4">
                                 <label class="form-label">Last Name*</label>
                                 <input type="text" class="form-control" placeholder="Your surname">
                             </div>

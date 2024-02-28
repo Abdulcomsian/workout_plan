@@ -23,7 +23,7 @@
 <section class="main-area">
     <div class="container">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-12 col-lg-7 col-xl-7">
                 <div class="back-bar">
                     <a class="back" href="#">
                         <img src="{{ URL::asset('build/images/back.svg') }}" alt="">
@@ -57,47 +57,51 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-12 col-lg-5 col-xl-5">
                 <div class="payment-side">
                     <button class="btn btn-apple-pay">
                         <img src="{{ URL::asset('build/images/apple.svg') }}" alt="">
                         Pay
                     </button>
                     <div class="seperator">
-                        or pay another way
+                        <span>or pay another way</span>
                     </div>
                     <form action="#">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email" class="form-control" placeholder="Email address">
                         </div>
-                        <div class="card-check mb-4">
-                            <div class="pay-option svg1" id="check-bank">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 10.9971V18C0 19.6569 1.34315 21 3 21H21C22.6569 21 24 19.6569 24 18V10.9971C23.9725 10.999 23.9447 11 23.9167 11H0.0833334C0.055294 11 0.0275035 10.999 0 10.9971Z" fill="#979797"></path> <path d="M24 9.00291V6C24 4.34315 22.6569 3 21 3H3C1.34315 3 0 4.34315 0 6V9.00291C0.0275035 9.00098 0.055294 9 0.0833334 9H23.9167C23.9447 9 23.9725 9.00098 24 9.00291Z" fill="#979797"></path> </g></svg>
-                                <span>Card</span>
-                                <img src="{{ URL::asset('build/images/check.svg') }}" class="check-check" alt="">
+                        <div class="card-check mb-3 row">
+                            <div class="col-lg-6 col-md-6 px-sm-2 px-md-2 px-md-0 px-xs-0 my-2 col-sm-6">
+                                <div class="pay-option svg1" id="check-bank">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 10.9971V18C0 19.6569 1.34315 21 3 21H21C22.6569 21 24 19.6569 24 18V10.9971C23.9725 10.999 23.9447 11 23.9167 11H0.0833334C0.055294 11 0.0275035 10.999 0 10.9971Z" fill="#979797"></path> <path d="M24 9.00291V6C24 4.34315 22.6569 3 21 3H3C1.34315 3 0 4.34315 0 6V9.00291C0.0275035 9.00098 0.055294 9 0.0833334 9H23.9167C23.9447 9 23.9725 9.00098 24 9.00291Z" fill="#979797"></path> </g></svg>
+                                    <span>Card</span>
+                                    <img src="{{ URL::asset('build/images/check.svg') }}" class="check-check" alt="">
+                                </div>
                             </div>
-                            <div class="pay-option svg2" id="check-card">
-                                <svg viewBox="0 0 45 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6092 8.34165L12.0001 3.64575L3.39093 8.34165L3.75007 9.75007H5.25007V15.7501H4.50007V17.2501H19.5001V15.7501H18.7501V9.75007H20.2501L20.6092 8.34165ZM6.75007 15.7501V9.75007H9.00007V15.7501H6.75007ZM10.5001 15.7501V9.75007H13.5001V15.7501H10.5001ZM15.0001 15.7501V9.75007H17.2501V15.7501H15.0001ZM12.0001 5.35438L17.3088 8.25007H6.69131L12.0001 5.35438ZM3 19.5001H21V18.0001H3V19.5001Z" fill="#979797"></path> 
-                                    </g>
-                                </svg>                                
-                                <span>US Bank Account</span>
-                                <img src="{{ URL::asset('build/images/check.svg') }}" class="check-check" alt="">
+                            <div class="col-lg-6 col-md-6 px-sm-2 px-md-2 px-md-0 px-xs-0 my-2 col-sm-6">
+                                <div class="pay-option svg2" id="check-card">
+                                    <svg viewBox="0 0 45 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.6092 8.34165L12.0001 3.64575L3.39093 8.34165L3.75007 9.75007H5.25007V15.7501H4.50007V17.2501H19.5001V15.7501H18.7501V9.75007H20.2501L20.6092 8.34165ZM6.75007 15.7501V9.75007H9.00007V15.7501H6.75007ZM10.5001 15.7501V9.75007H13.5001V15.7501H10.5001ZM15.0001 15.7501V9.75007H17.2501V15.7501H15.0001ZM12.0001 5.35438L17.3088 8.25007H6.69131L12.0001 5.35438ZM3 19.5001H21V18.0001H3V19.5001Z" fill="#979797"></path> 
+                                        </g>
+                                    </svg>                                
+                                    <span>US Bank Account</span>
+                                    <img src="{{ URL::asset('build/images/check.svg') }}" class="check-check" alt="">
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Card Information</label>
                             <input type="text" class="form-control" placeholder="1234 1234 1234 1234">
                         </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
                                 <input type="text" class="form-control" placeholder="MM / YY">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <input type="text" class="form-control" placeholder="CVC">
                             </div>
                         </div>

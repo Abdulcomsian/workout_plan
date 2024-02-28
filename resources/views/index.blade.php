@@ -36,7 +36,7 @@
                         <div class="mb-4">
                             <label for="gender" class="form-label">Gender</label>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                         <label class="form-check-label" for="flexRadioDefault1">
@@ -44,7 +44,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                         <label class="form-check-label" for="flexRadioDefault1">
