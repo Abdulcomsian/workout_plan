@@ -3,33 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Handlers\{WorkoutHandler, AiHandler}; 
+use App\Http\Handlers\{WorkoutHandler, AiHandler , TwillioHandler}; 
 use Illuminate\Support\Facades\Validator;
 
 class WorkoutController extends Controller
 {
     protected $workoutHandler;
     protected $aiHandler;
+    protected $twilioHandler;
 
-    function __construct(WorkoutHandler $workoutHandler , AiHandler $aiHandler )
+    function __construct(WorkoutHandler $workoutHandler , AiHandler $aiHandler , TwillioHandler $twilioHandler )
     {
         $this->workoutHandler = $workoutHandler;
         $this->aiHandler = $aiHandler;
+        $this->twilioHandler = $twilioHandler;
     }
 
     public function addWorkout(Request $request)
     {
+
         $validator = Validator::make( $request->all() , [
             "gender" => "required|string",
             "goal" => "required|string",
             "type" => "required|string",
             "level" => "required|string",
-            "time" => 'required|numeric',
-            "routine" => "required|array|min:1",
-            "routine.*.day" => "required|string",
-            "routine.*.time" => "required|date_format:H:i",
-            "routine.*.group" => "required|string",
-        ]); 
+            "time" => 'required|string',
+            "weight" => 'required|numeric',
+            "feet" => 'required|numeric',
+            "inches" => 'required|numeric',
+            "routine" => "required|json"
+        ]);
+
 
         if($validator->fails())
         {
@@ -46,5 +50,9 @@ class WorkoutController extends Controller
         {
             return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
         }
+    }
+
+    public function test(){
+        $this->twilioHandler->sendSMS("Hello there how are you" , "+923115818727");
     }
 }

@@ -20,32 +20,36 @@ class WorkoutHandler{
         // $routines=[];
         $days = [];
         $dailyGroup = [];
-        foreach($request->routines as $routine)
+
+        $routines = json_decode($request->routine);
+
+        foreach($routines as $routine)
         {
             $routines[] = [
                 // 'plan_id' => $plan->id,
-                'day' => $weekDays[$routine['day']],
-                'time' => $routine['time'],
-                'group' => $routine['group'],    
+                'day' => $routine->day,
+                'time' => $routine->time,
+                'group' => $routine->muscleType,    
             ];
 
-            $days[] =$routine['day'];
-            $dailyGroup[] = [ $routine['day']  => $routine['group']];
+            $days[] =$routine->day;
+            $dailyGroup[] = [ $routine->day  => $routine->muscleType];
         }
 
         $days = implode(", " , $days);
-
         $dailyGroupPrompt = 'On ';
-
+        
+        // dd($dailyGroup);
         foreach($dailyGroup as $index => $group)
         {
             $day = array_keys($group)[0];
-            $currentGroup = $group;
+            $currentGroup = array_values($group)[0];
             sizeof($dailyGroup) > $index ? $dailyGroupPrompt .= $day.' target '.$currentGroup.', ':  $dailyGroupPrompt .= $day.' target '.$currentGroup.'.';
         }
+
         
         $prompt = "User with gender $request->gender requested a workout. Generate a personalized workout plan for $days. 
-                   The user's goal is to $request->goal. User prefer a $request->type workout. The user can dedicate $request->time minutes  
+                   The user's goal is to $request->goal. User prefer a $request->type workout. The user can dedicate $request->time 
                    workout session and prefers moderate to high-intensity workouts. They have access to basic
                    gym equipment including dumbbells, barbells, and a treadmill. $dailyGroupPrompt Please include
                    warm-up and cool-down routines in each session. Prompt should look like below text for each day.
@@ -71,6 +75,7 @@ class WorkoutHandler{
                     [Create a similar workout plan for each day]";
 
 
+        $aiHandler->generateAiWorkout($prompt);
         dd($prompt);
 
 

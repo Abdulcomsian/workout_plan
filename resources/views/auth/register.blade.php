@@ -202,3 +202,13 @@
 
 
 @endsection
+
+
+@section('script')
+<script>
+    document.querySelector(".view-pass").addEventListener("click" , function(e){
+        let passwordField = document.querySelector('input[name="password"]');
+        passwordField.getAttribute('type') == 'password' ? passwordField.setAttribute('type' , 'text') :  passwordField.setAttribute('type' , 'password'); 
+    })
+</script>
+@endsection

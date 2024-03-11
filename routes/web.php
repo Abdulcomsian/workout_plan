@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\{
-    HomeController
+    HomeController,
+    WorkoutController,
+    StripeController
 };
 
 /*
@@ -30,6 +32,9 @@ Route::group(['middleware' => ['prevent.back.header' , 'verfiy.authentication']]
     Route::get('/', [HomeController::class , 'index'] );
     Route::get('home', [HomeController::class, 'index'])->name('index');
     Route::get('generate', [HomeController::class, 'generate'])->name('generate');
+    Route::post('create-setup-intent' , [StripeController::class , 'createSetupIntent'])->name('createSetupIntent');
+    Route::post('add-workout' , [WorkoutController::class , 'addWorkout'])->name('addWorkout');
+    Route::get('test-twillio' , [WorkoutController::class ,'test']);
     // Route::get('login', [HomeController::class, 'login'])->name('login');
     // Route::get('signup', [HomeController::class, 'signup'])->name('signup');
     Route::get('payment', [HomeController::class, 'payment'])->name('payment');

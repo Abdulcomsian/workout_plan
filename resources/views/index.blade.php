@@ -56,8 +56,8 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="" id="primary-goal" class="form-label">Primary Goal</label>
-                            <select class="form-select">
+                            <label for="" class="form-label">Primary Goal</label>
+                            <select  id="primary-goal" class="form-select">
                                 <option value="Build Muscle" selected>Build Muscle</option>
                                 <option value="Weight Loss">Weight Loss</option>
                                 <option value="Flexibility">Flexibility</option>
@@ -65,8 +65,8 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="" id="workout-type"  class="form-label">Workout Type</label>
-                            <select class="form-select">
+                            <label for=""  class="form-label">Workout Type</label>
+                            <select  id="workout-type"class="form-select">
                                 <option value="Weighted" selected>Weighted</option>
                                 <option value="Flexibility And Balance">Flexibility And Balance</option>
                                 <option value="High-Intensity Interval">High-Intensity Interval</option>
@@ -78,8 +78,8 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="" id="strength-level"  class="form-label">Strength Level</label>
-                            <select class="form-select">
+                            <label for="" class="form-label">Strength Level</label>
+                            <select  id="strength-level" class="form-select">
                                 <option value="Beginner" selected>Beginner</option>
                                 <option value="Intermediate">Intermediate</option>
                                 <option value="Advance">Advance</option>
@@ -87,8 +87,8 @@
                             </select>
                         </div>
                         <div>
-                            <label for="" id="workout-time"  id="workout-time"  class="form-label">Workout Time</label>
-                            <select class="form-select">
+                            <label for="" class="form-label">Workout Time</label>
+                            <select  id="workout-time"  class="form-select">
                                 <option value="15 Mins" selected>15 Mins</option>
                                 <option value="30 Mins">30 Mins</option>
                                 <option value="45 Mins">45 Mins</option>
@@ -139,7 +139,7 @@
                                 <td><input type="time"></td>
                                 <td>
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Choose muscles</option>
+                                        <option value="" selected>Choose muscles</option>
                                         <option value="Chest Muscles">Chest Muscles</option>
                                         <option value="Back Muscles">Back Muscles</option>
                                         <option value="Shoulder Muscles">Shoulder Muscles</option>
@@ -158,7 +158,7 @@
                                 <td><input type="time"></td>
                                 <td>
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Choose muscles</option>
+                                        <option value="" selected>Choose muscles</option>
                                         <option value="Chest Muscles">Chest Muscles</option>
                                         <option value="Back Muscles">Back Muscles</option>
                                         <option value="Shoulder Muscles">Shoulder Muscles</option>
@@ -177,7 +177,7 @@
                                 <td><input type="time"></td>
                                 <td>
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Choose muscles</option>
+                                        <option value="" selected>Choose muscles</option>
                                         <option value="Chest Muscles">Chest Muscles</option>
                                         <option value="Back Muscles">Back Muscles</option>
                                         <option value="Shoulder Muscles">Shoulder Muscles</option>
@@ -196,7 +196,7 @@
                                 <td><input type="time"></td>
                                 <td>
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Choose muscles</option>
+                                        <option value="" selected>Choose muscles</option>
                                         <option value="Chest Muscles">Chest Muscles</option>
                                         <option value="Back Muscles">Back Muscles</option>
                                         <option value="Shoulder Muscles">Shoulder Muscles</option>
@@ -215,7 +215,7 @@
                                 <td><input type="time"></td>
                                 <td>
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Choose muscles</option>
+                                        <option value="" selected>Choose muscles</option>
                                         <option value="Chest Muscles">Chest Muscles</option>
                                         <option value="Back Muscles">Back Muscles</option>
                                         <option value="Shoulder Muscles">Shoulder Muscles</option>
@@ -234,7 +234,7 @@
                                 <td><input type="time"></td>
                                 <td>
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Choose muscles</option>
+                                        <option value="" selected>Choose muscles</option>
                                         <option value="Chest Muscles">Chest Muscles</option>
                                         <option value="Back Muscles">Back Muscles</option>
                                         <option value="Shoulder Muscles">Shoulder Muscles</option>
@@ -253,7 +253,7 @@
                                 <td><input type="time"></td>
                                 <td>
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Choose muscles</option>
+                                        <option value="" selected>Choose muscles</option>
                                         <option value="Chest Muscles">Chest Muscles</option>
                                         <option value="Back Muscles">Back Muscles</option>
                                         <option value="Shoulder Muscles">Shoulder Muscles</option>
@@ -275,8 +275,9 @@
     </div>
 </section>
 
+@endsection
 
-
+@section('script')
 <script src="{{asset('packages/validator.min.js')}}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -317,7 +318,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if(checkbox.checked){
                 let day = checkbox.value;
                 let tr = checkbox.closest("tr");
-                console.log(tr);
                 let time = tr.querySelector("input[type='time']").value;
                 let muscleType = tr.querySelector("select").value;
 
@@ -327,18 +327,55 @@ document.addEventListener("DOMContentLoaded", function() {
                     muscleType : muscleType
                 }
 
-                let check = checkError(data);
-
-
+                let validationError = checkError(data);
+                validationError.length > 0 ? error.push(validationError) : excerciseDays.push(data);
             }
+
+            if(error.length > 0){
+                return 
+            }
+
         })
 
+        if(error.length > 0){
+            let errorDetail = error.join(" ,");
+            Swal.fire({
+                title: 'Error!',
+                text: errorDetail,
+                icon: 'error',
+            })
+            return;
+        }
 
 
+        if(excerciseDays.length == 0){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Select At Least One Day',
+                icon: 'error',
+            })
+
+            return;
+        }
 
 
-
+        let form = new FormData();
         
+        form.append("goal" , primaryGoal);
+        form.append("type" , workoutType);
+        form.append("level" , strengthLevel);
+        form.append("time" , workoutTime);
+        form.append("weight" , weight);
+        form.append("feet" , feet);
+        form.append("inches" , inches);
+        form.append("gender" , gender);
+        form.append("routine" , JSON.stringify(excerciseDays));
+
+        console.log(excerciseDays);
+        let url = "{{route('addWorkout')}}";
+        addFormData(form , url , null , null , null )
+
+
 
     })
 
@@ -348,8 +385,18 @@ document.addEventListener("DOMContentLoaded", function() {
         let validationError = [];
         for(let key in data)
         {
-            data[key]
+            if(validator.isEmpty(data[key])){
+                let currentKey = splitCamelCase(key).toLowerCase();
+                validationError.push(`${currentKey} must be required`);
+            }
         }
+
+        return validationError;
+
+    }
+
+    function splitCamelCase(str){
+        return str.replace(/([a-z])([A-Z])/g, '$1 $2');
     }
 
 </script>

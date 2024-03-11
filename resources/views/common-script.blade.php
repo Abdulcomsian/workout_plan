@@ -1,5 +1,5 @@
 <script>
-    function addFormData(data , url , fn = null , submitBtn = null , redirectUrl = null ){
+    function addFormData(form , url , fn = null , submitBtn = null , redirectUrl = null ){
         form.append("_token" , "{{csrf_token()}}");
         $.ajax({
             url : url,
@@ -17,6 +17,12 @@
                     if(fn != null){
                             fn();
                         }
+                }else{
+                    Swal.fire({
+                        title: res.msg,
+                        text: res.error,
+                        icon: 'error',
+                    })
                 }
             }
         })
