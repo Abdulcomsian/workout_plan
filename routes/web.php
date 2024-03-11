@@ -17,22 +17,26 @@ use App\Http\Controllers\{
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Auth::routes();
+
+
+
+
+
+
+
+Route::group(['middleware' => ['prevent.back.header' , 'verfiy.authentication']] , function(){
+    
+    Route::get('/', [HomeController::class , 'index'] );
+    Route::get('home', [HomeController::class, 'index'])->name('index');
+    Route::get('generate', [HomeController::class, 'generate'])->name('generate');
+    // Route::get('login', [HomeController::class, 'login'])->name('login');
+    // Route::get('signup', [HomeController::class, 'signup'])->name('signup');
+    Route::get('payment', [HomeController::class, 'payment'])->name('payment');
+    Route::get('subscription', [HomeController::class, 'subscription'])->name('subscription');
+    Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 });
 
 
 
-
-
-
-
-
-Route::get('index', [HomeController::class, 'index'])->name('index');
-Route::get('generate', [HomeController::class, 'generate'])->name('generate');
-Route::get('login', [HomeController::class, 'login'])->name('login');
-Route::get('signup', [HomeController::class, 'signup'])->name('signup');
-Route::get('payment', [HomeController::class, 'payment'])->name('payment');
-Route::get('subscription', [HomeController::class, 'subscription'])->name('subscription');
-Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 

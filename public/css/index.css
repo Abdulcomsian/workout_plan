@@ -539,6 +539,10 @@ section.main-area .profile-info .info-sec .action a {
   font-size: 14px;
 }
 
+.fa-spinner{
+  font-size: 19px;
+}
+
 .form-check-input:checked {
   background-color: #01BAB3 !important;
   border-color: #01BAB3 !important;
