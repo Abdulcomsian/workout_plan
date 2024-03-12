@@ -19,7 +19,7 @@ class WorkoutController extends Controller
         $this->twilioHandler = $twilioHandler;
     }
 
-    public function addWorkout(Request $request)
+    public function createWorkoutPlan(Request $request)
     {
 
         $validator = Validator::make( $request->all() , [
@@ -54,5 +54,9 @@ class WorkoutController extends Controller
 
     public function test(){
         $this->twilioHandler->sendSMS("Hello there how are you" , "+923115818727");
+    }
+
+    public function testCron(){
+        // Carbon\Carbon::
     }
 }

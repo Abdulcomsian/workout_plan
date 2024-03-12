@@ -34,8 +34,8 @@
                           <label class="form-label">Email</label>
                           <input type="email" name="email" class="form-control" placeholder="Email address" value="{{old('email')}}">
                           @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                            <span>
+                                <strong class="text-danger">{{ $message }}</strong>
                             </span>
                          @enderror
                         </div>
@@ -43,8 +43,8 @@
                           <label class="form-label">Password</label>
                           <input type="password" name="password" class="form-control" placeholder="Enter your password">
                           @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                            <span>
+                                <strong class="text-danger">{{ $message }}</strong>
                             </span>
                           @enderror
                           <a href="#" class="view-pass">

@@ -75,7 +75,7 @@
                                         <button class="btn btn-cancel">Cancel</button>
                                     </div>
                                     <div class="right">
-                                        <span class="total">Total : $20.00</span>
+                                        <span class="total">Total : ${{$plan->amount}}</span>
                                         <span class="status"><b>Status :</b> Subscribed</span>
                                         <span class="payment-method"><b>Payment Method :</b> Card</span>
                                     </div>
