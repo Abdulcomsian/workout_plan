@@ -42,5 +42,36 @@
     }
 
 
+    function updateHtml(url , data , html , fn = null , loader = null)
+    {
+        if(loader != null){
+            loader.classList.remove("d-none");
+        }
+        $.ajax({
+            url : url,
+            type : 'POST',
+            data : {
+                _token : "{{csrf_token()}}",
+                ...data
+            },
+            success:function(res)
+            {
+                html.innerHTML = res.html;
+                if(fn != null){
+                            fn();
+                        }
+
+                if(loader != null){
+                    loader.classList.add("d-none");
+                }
+
+                Swal.fire({
+                    text: res.msg,
+                    icon: "success"
+                });
+            }
+        })
+    }
+
 
 </script>

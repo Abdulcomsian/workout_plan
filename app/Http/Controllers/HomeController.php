@@ -26,4 +26,13 @@ class HomeController extends Controller
         return view('index');
     }
 
+    public function profile()
+    {
+        return view('profile');
+    }
+
+    public function generate(){
+        return view('generate');
+    }
+
 }

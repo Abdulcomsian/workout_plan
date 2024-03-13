@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('muscle');
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
             $table->timestamp('created_at')->default(now());
-            $table->timestamp('udpated_at')->default(now());
+            $table->timestamp('updated_at')->default(now());
         });
     }
 

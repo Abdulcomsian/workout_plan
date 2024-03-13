@@ -6,12 +6,19 @@ class AiHandler{
 
     public function generateAiWorkout($prompt)
     {
-        $result = OpenAI::completions()->create([
-            'model' => 'gpt-3.5-turbo',
-            'prompt' => $prompt,
-        ]);
 
-        dd("openai generated text", $result);
+        $result = OpenAI::chat()->create([
+                            'model' => 'gpt-3.5-turbo',
+                            'messages' => [
+                                ['role' => 'system', 'content' => 'You:'],
+                                ['role' => 'user', 'content' => $prompt]
+                            ]
+                        ]);
+
+
+        $dailyWorkoutRoutine = $result['choices'][0]['message']['content'];
+
+        return $dailyWorkoutRoutine;
     }
 
 }

@@ -52,6 +52,104 @@ class WorkoutController extends Controller
         }
     }
 
+    public function planDetail(Request $request)
+    {
+        try{
+            $response = $this->workoutHandler->getPlanDetail($request);
+            return view('plan-detail')->with($response);
+        }catch(\Exception $e){
+            return redirect()->back()->with('error' , $e->getMessage());
+        }
+    }
+
+
+    public function regenerateSingleWorkout(Request $request)
+    {
+        $validator = Validator::make( $request->all() , [
+            "routine_id" => "required|numeric",
+        ]);
+
+
+        if($validator->fails())
+        {
+             return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => implode(" ," ,$validator->messages()->all())]);
+        }
+
+        try{
+
+            $response = $this->workoutHandler->regenerateWorkout($request , $this->aiHandler);
+
+            return response()->json($response);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
+    }
+
+
+    public function regenerateAllWorkout(Request $request)
+    {
+        $validator = Validator::make( $request->all() , [
+            "plan_id" => "required|numeric",
+        ]);
+
+
+        if($validator->fails())
+        {
+             return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => implode(" ," ,$validator->messages()->all())]);
+        }
+
+        try{
+
+            $response = $this->workoutHandler->regenerateAllWorkout($request , $this->aiHandler);
+
+            return response()->json($response);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
+    }
+
+    public function updateWorkout(Request $request)
+    {
+        $validator = Validator::make( $request->all() , [
+            "workout_id" => "required|numeric",
+            'workout' => "required|string"
+        ]);
+
+        if($validator->fails())
+        {
+             return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => implode(" ," ,$validator->messages()->all())]);
+        }
+
+        try{
+
+            $response = $this->workoutHandler->changeWorkout($request , $this->aiHandler);
+
+            return response()->json($response);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
+    }
+
+    public function updatePlanWorkout(Request $request)
+    {
+        try{
+
+            $response = $this->workoutHandler->updatePlanWorkout($request);
+
+            return response()->json($response);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['status' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        } 
+    }
+
     public function test(){
         $this->twilioHandler->sendSMS("Hello there how are you" , "+923115818727");
     }

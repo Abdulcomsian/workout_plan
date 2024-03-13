@@ -15,7 +15,7 @@ protected $fillable = ['plan_id','day', 'time' , 'muscle'  ];
 
 
 public function workout(){
-    return $this->hasOne(PlanRoutine::class , 'routine_id' , 'id');
+    return $this->hasOne(RoutineWorkout::class , 'routine_id' , 'id');
 }
 
 public function plan(){

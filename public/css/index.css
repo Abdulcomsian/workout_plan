@@ -25,6 +25,30 @@ body {
   border-radius: 3px;
 }
 
+#btn-regenerate{
+  background: transparent;
+  border: 2px solid #01BAB3;
+  padding: 5px 15px;
+  border-radius: 3px;
+  color: #01BAB3;
+}
+
+#btn-submit-all{
+  background: #01BAB3;
+  color: #fff;
+  border: 2px solid #01BAB3;
+  padding: 5px 15px;
+  border-radius: 3px;
+}
+
+.theme-btn{
+  background: #01BAB3;
+  color: #fff;
+  border: 2px solid #01BAB3;
+  padding: 5px 15px;
+  border-radius: 3px;
+}
+
 section.main-area {
   margin-top: 50px;
   margin-bottom: 50px;

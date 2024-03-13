@@ -108,7 +108,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label for="" class="form-label">Feet</label>
-                                    <input class="form-control" id="feet"  type="number" min="3" value="3" max="400">
+                                    <input class="form-control" id="feet"  type="number" min="3" value="3" max="8">
                                 </div>
                                 <div class="col-6">
                                     <label for="" class="form-label">Inches</label>
@@ -268,7 +268,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <button class="btn btn-save">Save & Start<i class="fas fa-spinner fa-spin mx-2 d-none text-white"></i></button>
+                    <button class="btn btn-save">Save & Start<i class="fas fa-spinner fa-spin loader mx-2 d-none text-white"></i></button>
                 </div>
             </div>
         </div>
@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let feet= document.getElementById("feet").value;
         let inches= document.getElementById("inches").value;
         let gender= document.querySelector("input[name='gender']").value;
-
+        let loader = document.querySelector(".loader");
         let checkboxes = document.querySelectorAll("input[type='checkbox']")
         let excerciseDays = [];
         let error = [];
@@ -371,11 +371,9 @@ document.addEventListener("DOMContentLoaded", function() {
         form.append("gender" , gender);
         form.append("routine" , JSON.stringify(excerciseDays));
 
-        console.log(excerciseDays);
+        
         let url = "{{route('addWorkout')}}";
-        addFormData(form , url , null , null , null )
-
-
+        addFormData(form , url , null , null , loader )
 
     })
 
@@ -398,6 +396,20 @@ document.addEventListener("DOMContentLoaded", function() {
     function splitCamelCase(str){
         return str.replace(/([a-z])([A-Z])/g, '$1 $2');
     }
+
+    $(document).on("keydown" , "input[type='number']" , function(e){
+        let element = e.target;
+        let keyCode = e.keyCode;
+        let value = element.value;
+        let maximumValue = element.getAttribute('max');
+        if(keyCode >= 48 && keyCode <= 57 )
+        {
+            let afterNumber = parseInt(value.toString()+e.key.toString())
+            if(afterNumber > maximumValue){
+                e.preventDefault();
+            }
+        }
+    })
 
 </script>
 @endsection
