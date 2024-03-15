@@ -59,17 +59,17 @@
             </div>
             <div class="col-md-12 col-lg-5 col-xl-5">
                 <div class="payment-side">
-                    <button class="btn btn-apple-pay">
+                    {{-- <button class="btn btn-apple-pay">
                         <img src="{{ URL::asset('build/images/apple.svg') }}" alt="">
                         Pay
                     </button>
                     <div class="seperator">
                         <span>or pay another way</span>
-                    </div>
-                    <form action="#">
-                        <div class="mb-3">
+                    </div> --}}
+                    <form id="add-subscription" action="{{route('addSubscription')}}" method="POST">
+                        {{-- <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" placeholder="Email address">
+                            <input type="email"  class="form-control" placeholder="Email address">
                         </div>
                         <div class="card-check mb-3 row">
                             <div class="col-lg-6 col-md-6 px-sm-2 px-md-2 px-md-0 px-xs-0 my-2 col-sm-6">
@@ -92,8 +92,8 @@
                                     <img src="{{ URL::asset('build/images/check.svg') }}" class="check-check" alt="">
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
+                        </div> --}}
+                        {{-- <div class="mb-3">
                             <label class="form-label">Card Information</label>
                             <input type="text" class="form-control" placeholder="1234 1234 1234 1234">
                         </div>
@@ -104,8 +104,11 @@
                             <div class="col-md-6 mb-3">
                                 <input type="text" class="form-control" placeholder="CVC">
                             </div>
-                        </div>
-                        <div class="mb-3">
+                        </div> --}}
+                        
+
+
+                        {{-- <div class="mb-3">
                             <label class="form-label">Cardholder Name</label>
                             <input type="text" class="form-control" placeholder="Full name on card">
                         </div>
@@ -121,15 +124,20 @@
                         <div class="mb-4">
                             <label class="form-label">Zip Code</label>
                             <input type="text" class="form-control" placeholder="Full name on card">
-                        </div>
-                        <button class="btn btn-subscribe">Subscribe</button>
+                        </div>--}}
+                        <div class="mb-4">
+                            <div id="card-element">
+
+                            </div>
+                        </div> 
+                        <button type="submit" class="btn btn-subscribe">Subscribe<i class="fas fa-spinner fa-spin mx-2 d-none text-white loader"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<script>
+{{-- <script>
     const div1 = document.getElementById('check-card');
     const div2 = document.getElementById('check-bank');
   
@@ -142,5 +150,92 @@
       div2.classList.add('checked');
       div1.classList.remove('checked');
     });
-  </script>
+  </script> --}}
+@endsection
+
+
+@section('script')
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{env("STRIPE_KEY")}}')
+    var card = null;
+    
+    createCardElements()
+    
+    function createCardElements(){
+        const element = stripe.elements();
+        card = element.create('card')
+        card.mount("#card-element");
+    }
+
+
+    document.querySelector("#add-subscription").addEventListener("submit" , async function(e){
+        e.preventDefault();
+
+        let loader = this.querySelector(".loader"); 
+        loader.classList.remove("d-none");
+        let clientSecret = await getSetupIntent().then(data =>{
+            return data;
+        })
+
+        if(clientSecret != null){
+            const { setupIntent, error} = await stripe.confirmCardSetup( clientSecret , {
+                                                                            payment_method : {
+                                                                                card : card,
+                                                                            }
+                                                                    });
+    
+            if(error){
+                Swal.fire({
+                            icon: "error",
+                            title: error,
+                        });
+                return;
+            }else{ 
+                
+                let url = '{{route("addSubscription")}}';
+                let form = new FormData;
+                form.append("payment_method" , setupIntent.payment_method);
+                addFormData( form , url , null , null , loader , null )
+            }
+
+        }else{
+            Swal.fire({
+                            icon: "error",
+                            title: "Something Went Wrong",
+                        });
+                return;
+        }
+
+    })
+
+    async function getSetupIntent()
+    {
+        let clientSecret = null;
+        
+        await $.ajax({
+            url : '{{route("createSetupIntent")}}',
+            type : 'POST',
+            data : {
+                '_token' : '{{csrf_token()}}'
+            },
+            success:function(res)
+            {
+                if(res.status){
+                    clientSecret = res.clientSecret;        
+                }else{
+                    Swal.fire({
+                                    icon: "error",
+                                    title: res.error,
+                                    text: res.msg,
+                                });
+                }
+            }
+
+        })
+        return clientSecret;
+    } 
+
+
+</script>
 @endsection

@@ -9,7 +9,19 @@ body {
           box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 20px 0;
 }
-
+.top-sec{
+  display: flex;
+  justify-content: space-between;
+}
+.user-fav{
+  background-color: #eee;
+  width: 50px;
+  padding: 10px;
+  border-radius: 50px;
+}
+.header-list{
+  list-style-type: none;
+}
 .btn-group-right .btn-regenerate {
   background: transparent;
   border: 2px solid #01BAB3;
@@ -18,6 +30,30 @@ body {
   color: #01BAB3;
 }
 .btn-group-right .btn-submit-all {
+  background: #01BAB3;
+  color: #fff;
+  border: 2px solid #01BAB3;
+  padding: 5px 15px;
+  border-radius: 3px;
+}
+
+#btn-regenerate{
+  background: transparent;
+  border: 2px solid #01BAB3;
+  padding: 5px 15px;
+  border-radius: 3px;
+  color: #01BAB3;
+}
+
+#btn-submit-all{
+  background: #01BAB3;
+  color: #fff;
+  border: 2px solid #01BAB3;
+  padding: 5px 15px;
+  border-radius: 3px;
+}
+
+.theme-btn{
   background: #01BAB3;
   color: #fff;
   border: 2px solid #01BAB3;
@@ -537,6 +573,10 @@ section.main-area .profile-info .info-sec .action a {
   text-decoration: none;
   font-weight: bold;
   font-size: 14px;
+}
+
+.fa-spinner{
+  font-size: 19px;
 }
 
 .form-check-input:checked {
