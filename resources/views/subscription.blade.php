@@ -29,26 +29,26 @@
         <div class="row">
             <div class="col-md-4 col-lg-3">
                 <div class="welcome">
-                    <h3>Hello John</h3>
+                    <h3>Hello {{auth()->user()->first_name.' '.auth()->user()->last_name}}</h3>
                     <p>
                         Welcome to your Account
                     </p>
                     <ul>
                         <li class="active">
-                            <a href="#">
-                                <img src="{{ URL::asset('build/images/subscription.svg') }}" alt="">
+                            <a href="{{url('subscription')}}">
+                                <img src="{{ URL::asset('images/subscription.svg') }}" alt="">
                                 My Subscription
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <img src="{{ URL::asset('build/images/user.svg') }}" alt="">
+                            <a href="{{url('profile')}}">
+                                <img src="{{ URL::asset('images/user.svg') }}" alt="">
                                 My Info
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <img src="{{ URL::asset('build/images/sign-out.svg') }}" alt="">
+                            <a href="{{route('logout')}}">
+                                <img src="{{ URL::asset('images/sign-out.svg') }}" alt="">
                                 Sign out
                             </a>
                         </li>
@@ -62,40 +62,51 @@
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                               <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Active</button>
-                              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Cancelled</button>
+                              {{-- <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Cancelled</button> --}}
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
+                            @if($user->latestSubscription && is_null($user->latestSubscription->ends_at))
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                                 <div class="active-sub">
                                     <div class="left">
                                         <h3>Daily Workout Subscription</h3>
-                                        <span class="start-date"><b>Subscription Date :</b> 1 Jan, 2024 2:40 PM </span>
-                                        <span class="end-date"><b>Subscription End Date :</b> 8 June, 2024  </span>
-                                        <button class="btn btn-cancel">Cancel</button>
+                                        <span class="start-date"><b>Subscription Date :</b>{{$user->latestSubscription->created_at->format('d M, Y')}} </span>
+                                        <span class="end-date"><b>Subscription End Date :</b> {{$user->latestSubscription->created_at->addMonth()->format('d M, Y')}}  </span>
+                                        <button type="button" class="btn btn-cancel cancel-subscription">Cancel<i class="fas fa-spinner fa-spin loader mx-2 d-none text-white"></i></button>
                                     </div>
                                     <div class="right">
-                                        <span class="total">Total : ${{$plan->amount}}</span>
+                                        <span class="total">Total : ${{number_format($plan->amount , 2)}}</span>
                                         <span class="status"><b>Status :</b> Subscribed</span>
                                         <span class="payment-method"><b>Payment Method :</b> Card</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                            <div class="active-sub">
+                            @else
+
+                            <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                                <div class="active-sub">
+                                    @if(is_null($user->latestSubscription))
+                                    <div class="left">
+                                        <h3>You have not subscribed to any plan yet.</h3> 
+                                    </div>
+                                    @else
                                     <div class="left">
                                         <h3>Daily Workout Subscription</h3>
-                                        <span class="start-date"><b>Subscription Date :</b> 1 Jan, 2024 2:40 PM </span>
-                                        <span class="end-date"><b>Subscription End Date :</b> 8 June, 2024  </span>
-                                        <button class="btn btn-cancel">ReActive</button>
+                                        <span class="start-date"><b>Subscription Date :</b> {{$user->latestSubscription->created_at->format('d M, Y')}} </span>
+                                        <span class="end-date"><b>Subscription End Date :</b> {{$user->latestSubscription->ends_at->format('d M, Y')}} </span>
+                                        <button type="button"  class="btn btn-cancel btn-active reactive-subscription">Re-Activate<i class="fas fa-spinner fa-spin loader mx-2 d-none text-white"></i></button>
                                     </div>
                                     <div class="right">
-                                        <span class="total">Total : $20.00</span>
+                                        <span class="total">Total : ${{number_format($plan->amount , 2)}}</span>
                                         <span class="status"><b>Status :</b> Cancelled</span>
                                         <span class="payment-method"><b>Payment Method :</b> Card</span>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
+
+                            @endif
                         </div>
                     </div>
                 </div> 
@@ -104,18 +115,38 @@
         </div>
     </div>
 </section>
+
+@endsection
+
+@section('script')
 <script>
-    const div1 = document.getElementById('check-card');
-    const div2 = document.getElementById('check-bank');
-  
-    div1.addEventListener('click', function() {
-      div1.classList.add('checked');
-      div2.classList.remove('checked');
-    });
-  
-    div2.addEventListener('click', function() {
-      div2.classList.add('checked');
-      div1.classList.remove('checked');
-    });
+    
+
+    $(document).on("click" , ".cancel-subscription" , function(e){
+        e.preventDefault()
+        let url = "{{route('cancelSubscription')}}";
+        let loader = this.querySelector(".loader");
+        let form = new FormData();
+        let submitBtn = this;
+        addFormData(form , url , reloadPage , submitBtn  , loader, null );
+    })
+
+
+    $(document).on("click" , ".reactive-subscription" , function(e){
+        e.preventDefault()
+        let url = "{{route('activateSubscription')}}";
+        let loader = this.querySelector(".loader");
+        let form = new FormData();
+        let submitBtn = this;
+        addFormData(form , url , reloadPage , submitBtn  , loader, null );
+    })
+
+
+    function reloadPage()
+    {
+        location.reload();
+    }
+
+
   </script>
 @endsection

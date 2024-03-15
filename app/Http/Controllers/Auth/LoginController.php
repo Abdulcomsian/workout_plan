@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Plan;
 
 class LoginController extends Controller
 {
@@ -25,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = null;
 
     /**
      * Create a new controller instance.
@@ -36,4 +37,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function redirectTo()
+    {
+        $plan = Plan::where('user_id' , auth()->user()->id)->first();
+        if($plan && $plan->status == 1){
+            return '/profile';
+        }elseif($plan && $plan->status == 0){
+            return '/payment'.$plan->id;
+        }else{
+            return '/home';
+        }
+    }
+
 }

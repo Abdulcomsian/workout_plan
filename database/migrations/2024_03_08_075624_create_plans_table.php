@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('level');
             $table->string('time');
-            $table->boolean('status')->default(1);  
+            $table->boolean('status')->default(0);  
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('created_at')->default(now());
             $table->timestamp('updated_at')->default(now());

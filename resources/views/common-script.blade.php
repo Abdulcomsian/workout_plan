@@ -30,6 +30,11 @@
                         text: res.msg,
                         icon: "success"
                     });
+
+                    if(res.redirectUrl){
+                        window.location.href = res.redirectUrl;
+                    }
+
                 }else{
                     Swal.fire({
                         title: res.msg,

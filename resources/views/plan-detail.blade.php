@@ -34,7 +34,7 @@
             </a>
             <div class="btn-group-right">
                 <button id="btn-regenerate" value="{{$plan->id}}">Regenerate All<i class="fas fa-spinner fa-spin regenerate-loader loader mx-2 d-none text-white"></i></button>
-                <button id="btn-submit-all" value="{{$plan->id}}">Submit All<i class="fas fa-spinner fa-spin submit-loader loader mx-2 d-none text-white"></i></button>
+                <button id="btn-submit-all" value="{{$plan->id}}">Save All & Proceed To Payment<i class="fas fa-spinner fa-spin submit-loader loader mx-2 d-none text-white"></i></button>
             </div>
         </div>
         <div class="generate-widgets">
@@ -57,12 +57,12 @@
                             </h4>
                             <p>
                                 {{-- @dd($routine->workout->detail) --}}
-                                {!! str_replace("\n", "<br>" , $routine->workout->detail) !!}
+                                {!! trim(str_replace("\n", "<br>" , $routine->workout->detail) , "<br>") !!}
                             </p>
                         </div>
                         <div class="btn-group-right text-center mt-4">
                             <button class="btn-regenerate" value="{{$routine->id}}">Regenerate<i class="fas fa-spinner fa-spin regenerate-loader loader mx-2 d-none text-white"></i></button>
-                            <button class="btn-submit-all" value="{{$routine->workout->id}}">Submit<i class="fas fa-spinner fa-spin submit-loader loader mx-2 d-none text-white"></i></button>
+                            <button class="btn-submit-all" value="{{$routine->workout->id}}">Save<i class="fas fa-spinner fa-spin submit-loader loader mx-2 d-none text-white"></i></button>
                         </div>
                     </div>
                 </div>
@@ -122,10 +122,12 @@
         let form = new FormData;
         let loader =  this.querySelector(".submit-loader")
         let url = "{{route('updatePlanWorkout')}}";
+        let planId = "{{$plan->id}}";
         widget.forEach(widget => {
             dailyWorkout.push({ id : widget.querySelector(".btn-submit-all").value , detail : widget.querySelector("p").innerHTML})
         })
         form.append('dailyWorkout' , JSON.stringify(dailyWorkout) );
+        form.append('planId' , planId);
         addFormData( form , url  , null , null , loader);
     })
 </script>

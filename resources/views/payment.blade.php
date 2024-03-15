@@ -196,15 +196,16 @@
                 let url = '{{route("addSubscription")}}';
                 let form = new FormData;
                 form.append("payment_method" , setupIntent.payment_method);
+                form.append("plan_id" , "{{$id}}");
                 addFormData( form , url , null , null , loader , null )
             }
 
         }else{
             Swal.fire({
-                            icon: "error",
-                            title: "Something Went Wrong",
-                        });
-                return;
+                        icon: "error",
+                        title: "Something Went Wrong",
+                    });
+            return;
         }
 
     })
@@ -225,10 +226,10 @@
                     clientSecret = res.clientSecret;        
                 }else{
                     Swal.fire({
-                                    icon: "error",
-                                    title: res.error,
-                                    text: res.msg,
-                                });
+                                icon: "error",
+                                title: res.error,
+                                text: res.msg,
+                            });
                 }
             }
 

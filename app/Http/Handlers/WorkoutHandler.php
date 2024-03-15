@@ -88,7 +88,7 @@ class WorkoutHandler{
 
         
 
-        return ['status' => true , 'msg' => 'Workout Created Successfully'];
+        return ['status' => true , 'msg' => 'Workout Created Successfully' , 'redirectUrl' => url('plan-detail' , $plan->id)];
 
 
     }
@@ -134,7 +134,7 @@ class WorkoutHandler{
 
                     [Create a similar workout plan for $selectedWeekDay day]";
 
-        $dailyWorkoutRoutine = str_replace("\n" , '</br>' , $aiHandler->generateAiWorkout($prompt));
+        $dailyWorkoutRoutine = str_replace("\n" , '<br>' , $aiHandler->generateAiWorkout($prompt));
 
         return ['status' => true , 'html' => $dailyWorkoutRoutine , 'msg' => 'Plan regenerated successfully'];
 
@@ -219,7 +219,7 @@ class WorkoutHandler{
             RoutineWorkout::where('id' , $workout->id)->update(['detail' => $workout->detail]);
         }
 
-        return ['status' => true , 'msg' => 'Plan workout updated successfully'];
+        return ['status' => true , 'msg' => 'Plan workout updated successfully' , 'redirectUrl' => url('payment' , $request->planId)];
 
     }
 

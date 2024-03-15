@@ -7,7 +7,7 @@ class UserHandler{
 
     public function updateUsername($request)
     {
-        User::where('id' , auth()->user()->id)->update([ 'first_name' => $request->first_name , 'first_name' => $request->last_name]);
+        User::where('id' , auth()->user()->id)->update([ 'first_name' => $request->first_name , 'last_name' => $request->last_name]);
         return [ 'status' => true , 'msg' => 'Username updated successfully'];
     }
 

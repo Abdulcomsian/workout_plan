@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Cashier\Billable;
+use Laravel\Cashier\Subscription;
+use App\Models\{Plan};
 
 class User extends Authenticatable
 {
@@ -45,4 +47,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function latestSubscription()
+    {
+        return $this->hasOne(Subscription::class , 'user_id' , 'id')->orderBy('id' , 'desc');
+    }
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class , 'user_id' , 'id');
+    }
+
+    public function activePlan()
+    {
+        return $this->hasOne(Plan::class , 'user_id' , 'id')->where('status' , 1);
+    }
+
 }
