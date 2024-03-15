@@ -64,7 +64,7 @@
                             <span>John Doe</span>
                         </div>
                         <div class="action">
-                            <a href="#">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#nameModal">
                                 change
                             </a>
                         </div>
@@ -81,7 +81,7 @@
                             <span>8980252445</span>
                         </div>
                         <div class="action">
-                            <a href="#">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#numberModal">
                                 change
                             </a>
                         </div>
@@ -92,7 +92,7 @@
                             <span>***********</span>
                         </div>
                         <div class="action">
-                            <a href="#">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#passwordModal">
                                 change
                             </a>
                         </div>
@@ -102,6 +102,7 @@
         </div>
     </div>
 </section>
+
 <script>
     const div1 = document.getElementById('check-card');
     const div2 = document.getElementById('check-bank');
