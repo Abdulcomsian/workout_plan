@@ -11,7 +11,7 @@ class WorkoutNotification extends Command
      *
      * @var string
      */
-    protected $signature = 'app:workout-notification';
+    protected $signature = 'cron:workout-notification';
 
     /**
      * The console command description.
