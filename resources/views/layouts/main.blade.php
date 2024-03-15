@@ -19,8 +19,23 @@
     <div id="layout-wrapper">
         <div class="topbar">
             <div class="container">
-                <div class="logo">
-                    <img src="{{ URL::asset('images/logo.svg') }}" alt="">
+                <div class="top-sec">
+                    <div class="logo">
+                        <img src="{{ URL::asset('images/logo.svg') }}" alt="">
+                    </div>
+                    <ul class="header-list">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ URL::asset('images/user.svg') }}" class="user-fav" alt="">
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
