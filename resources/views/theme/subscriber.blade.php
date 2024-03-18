@@ -93,6 +93,8 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Subscription Start</th>
+                                    <th>Status</th>
                                     {{-- <th>Fee Recovered</th> --}}
                                 </tr>
                             </thead>
@@ -135,6 +137,8 @@
                             { data: 'name', name: 'name' },
                             { data: 'email', name: 'email' },
                             { data: 'phone', name: 'phone' , 'orderable': false},
+                            { data: 'date', name: 'date' },
+                            { data: 'status', name: 'status'},
                         ];
             return [table , url , columns];
         }

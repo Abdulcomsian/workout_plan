@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
     public function getSubscribers()
     {
-        $subscribers = User::role('user')->get();
+        $subscribers = User::role('user')->with('latestSubscription')->get();
 
         return DataTables::of($subscribers)
               ->addIndexColumn()
@@ -39,7 +39,13 @@ class DashboardController extends Controller
               ->addColumn('phone' , function($subscriber){
                 return $subscriber->phone;
               })
-              ->rawColumns(['name' , 'email' , 'phone'])
+              ->addColumn('date' , function($subscriber){
+                return $subscriber->latestSubscription->created_at ? date("Y-m-d" , strtotime($subscriber->latestSubscription->created_at)) : "" ;
+              })
+              ->addColumn('status' , function($subscriber){
+                return $subscriber->latestSubscription && is_null($subscriber->latestSubscription->ends_at) ? "ACTIVE" : "INACTIVE" ;
+              })
+              ->rawColumns(['name' , 'email' , 'phone' , 'date' , 'status'])
               ->make(true);
     }
 }
