@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
 use Stripe\{Stripe , SetupIntent};
-use App\Models\{Plan , User};
+use App\Models\{Plan , User , SubscriptionAmount};
 use Stripe\PaymentMethod;
 
 class StripeController extends Controller
@@ -38,7 +38,8 @@ class StripeController extends Controller
             
             if($subscription){
                 Plan::where('id' , $request->plan_id)->update(['status' => 1]);
-                return response()->json(['status' => true , 'msg' => 'Subscription Added Successfully' , 'redirectUrl' => url('profile')]);
+                SubscriptionAmount::create(['user_id' => auth()->user()->id , 'amount' => $subscriptionPlan->amount]);
+                return response()->json(['status' => true , 'msg' => 'Subscription Added Successfully' , 'redirectUrl' => url('subscription')]);
             }else{
                 return response()->json(['status' => false , 'msg' => 'Something Went Wrong While Adding Subscription' ]);
             }

@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'verfiy.authentication' => \App\Http\Middleware\VerfiyAuthentication::class,
         'prevent.back.header' => \App\Http\Middleware\PreventBackHistory::class,
+        'authenticate.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
     ];
 }

@@ -23,6 +23,7 @@
                     <div class="logo">
                         <img src="{{ URL::asset('images/logo.svg') }}" alt="">
                     </div>
+                @if(!request()->is('login'))
                     <ul class="header-list">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,6 +37,7 @@
                             </ul>
                         </li>
                     </ul>
+                @endif
                 </div>
             </div>
         </div>

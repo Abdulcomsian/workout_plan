@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = null;
+    // protected $redirectTo = null;
 
     /**
      * Create a new controller instance.
@@ -40,13 +40,22 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        $plan = Plan::where('user_id' , auth()->user()->id)->first();
-        if($plan && $plan->status == 1){
-            return '/profile';
-        }elseif($plan && $plan->status == 0){
-            return '/payment'.$plan->id;
+
+        if(auth()->user()->hasRole('admin'))
+        {
+            return '/dashboard';
+
         }else{
-            return '/home';
+
+            $plan = Plan::where('user_id' , auth()->user()->id)->first();
+            if($plan && $plan->status == 1){
+                return '/profile';
+            }elseif($plan && $plan->status == 0){
+                return '/payment'.$plan->id;
+            }else{
+                return '/home';
+            }
+
         }
     }
 

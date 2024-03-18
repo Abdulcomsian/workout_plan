@@ -6,7 +6,8 @@ use App\Http\Controllers\{
                 HomeController,
                 WorkoutController,
                 StripeController,
-                UserController
+                UserController,
+                DashboardController
 };
 
 /*
@@ -46,6 +47,12 @@ Route::group(['middleware' => ['prevent.back.header' , 'verfiy.authentication']]
     Route::get('test-twillio' , [WorkoutController::class ,'test']);
     Route::get('logout' , [UserController::class , 'logout'])->name('logout');
     Route::get('test-workout-cron' , [WorkoutController::class , 'testCron']);
+
+    Route::middleware('authenticate.admin')->group(function(){
+        Route::get('dashboard' , [DashboardController::class , 'getDashboard'])->name('dashboard');
+        Route::get('subscribers' , [DashboardController::class , 'subscribers'])->name('subscribers');
+        Route::post('subscriber-list' , [DashboardController::class , 'getSubscribers'])->name('getSubscribers');
+    });
 });
 
 
