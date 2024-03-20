@@ -26,10 +26,9 @@ class TwillioHandler{
                 ]
             );
 
-            dd($message);
 
         }catch(\Exception $e){
-            dd($e->getMessage());
+            \Log::info("message ".$e->getMessage());
         }
     }
 }

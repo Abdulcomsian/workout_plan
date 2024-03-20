@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Http\Handlers\TwillioHandler;
 
 class WorkoutNotification extends Command
 {
@@ -25,6 +26,7 @@ class WorkoutNotification extends Command
      */
     public function handle()
     {
+        $twilioHandler = new TwillioHandler;
         $day = date ( 'w' , strtotime(now()));
         $currentTime = \Carbon\Carbon::now();
         $afterOneHour = $currentTime->copy()->addHour(1);
@@ -44,10 +46,14 @@ class WorkoutNotification extends Command
         foreach($routines as $routine)
         {
             $workout = $routine->workout->detail;
-            \Mail::raw($workout, function ($message) use ($routine) {
-                $message->to($routine->plan->user->email)
-                        ->subject('Daily Workout Plan');
-            });
+            if($routine->plan->user->phone){
+                $twilioHandler->sendSMS($workout , $routine->plan->user->phone);
+            }
+
+            // \Mail::raw($workout, function ($message) use ($routine) {
+            //     $message->to($routine->plan->user->email)
+            //             ->subject('Daily Workout Plan');
+            // });
         }
     }
 }

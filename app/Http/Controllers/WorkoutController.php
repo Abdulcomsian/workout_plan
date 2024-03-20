@@ -151,7 +151,7 @@ class WorkoutController extends Controller
     }
 
     public function test(){
-        $this->twilioHandler->sendSMS("Hello there how are you" , "+923115818727");
+        $this->twilioHandler->sendSMS("Hello Abdul How Are You." , "+18777804236");
     }
 
     public function testCron()
