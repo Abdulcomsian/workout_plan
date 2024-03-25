@@ -46,8 +46,9 @@ class WorkoutNotification extends Command
         foreach($routines as $routine)
         {
             $workout = $routine->workout->detail;
+            $html = view('layouts.message' , ['workout' => $workout])->render();
             if($routine->plan->user->phone){
-                $twilioHandler->sendSMS($workout , $routine->plan->user->phone);
+                $twilioHandler->sendSMS($html , $routine->plan->user->phone);
             }
 
             // \Mail::raw($workout, function ($message) use ($routine) {

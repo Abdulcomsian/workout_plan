@@ -1,0 +1,1 @@
+{!! trim(str_replace("\n", "<br>" , $routine->workout->detail) , "<br>") !!}
