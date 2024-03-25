@@ -43,7 +43,7 @@
                 <div class="col-md-4">
                     <div class="widget-generate">
                         <div class="widget-header">
-                            <h3>{{$weekdays[$routine->day]}}</h3>
+                            <h3>{{$weekdays[$routine->day - 1]}}</h3>
                             <a href="#">
                                 <img src="{{ URL::asset('build/images/ep_edit.svg') }}" alt="">
                             </a>
