@@ -1,104 +1,3 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @extends('layouts.main')
 
 @section('stylesheets')
@@ -107,10 +6,13 @@
 <link
     href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
-<link
-    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-    rel="stylesheet">
- 
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+ <style>
+    #phone{
+        width: 465px!important;
+    }
+ </style>
 @endsection
 
 
@@ -130,14 +32,14 @@
                     </div>
                     <h3 class="text-center">Get Started With MyWorkout!</h3>
                     <p class="text-center">Sign up to get daily workout routines texted to you.</p>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" id="user-form" action="{{ route('register') }}">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label class="form-label">First Name*</label>
                                 <input type="text" name="first_name" class="form-control" placeholder="Your first name">
                                 @error('first_name')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -146,26 +48,38 @@
                                 <label class="form-label">Last Name*</label>
                                 <input type="text" name="last_name" class="form-control" placeholder="Your surname">
                                 @error('last_name')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-12 mb-4">
+                        {{-- <div class="col-md-12 mb-4">
                             <label class="form-label">Phone*</label>
                             <input type="text" name="phone" class="form-control" placeholder="965-748-89-90">
                             @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                          </div>
+                          </div> --}}
+
+                        <div class="col-md-12 mb-4">
+                            <div>
+                                <label class="form-label">Phone*</label>
+                            </div>
+                            <input type="text" id="phone" name="phone" class="form-control">
+                            @error('phone')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
                         <div class="col-md-12 mb-4">
                           <label class="form-label">Email*</label>
                           <input type="email" name="email" class="form-control" placeholder="Email address">
                           @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                           @enderror
@@ -177,7 +91,7 @@
                               <img src="{{ URL::asset('images/eye.svg') }}" alt="">
                             </a>
                             @error('password')
-                                      <span class="invalid-feedback" role="alert">
+                                      <span class="text-danger" role="alert">
                                           <strong>{{ $message }}</strong>
                                       </span>
                             @enderror
@@ -205,10 +119,44 @@
 
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
+    $(document).ready(function() {
+      // Initialize intlTelInput
+      
     document.querySelector(".view-pass").addEventListener("click" , function(e){
         let passwordField = document.querySelector('input[name="password"]');
         passwordField.getAttribute('type') == 'password' ? passwordField.setAttribute('type' , 'text') :  passwordField.setAttribute('type' , 'password'); 
     })
+
+    const input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+    });
+
+    $(document).on("submit" , "#user-form" , function(e){
+        e.preventDefault();
+        let phoneNumber = $('#phone').val();
+
+        
+
+        if (phoneNumber) {
+            var iti = window.intlTelInputGlobals.getInstance(input);
+            prefix = iti.getSelectedCountryData().dialCode;
+        }else{
+            Swal.fire({
+                        title: 'Error',
+                        text: 'Please add phone number',
+                        icon: 'error',
+                    })
+            return;
+        }
+        document.querySelector('input[name="phone"]').value = "+"+prefix+phoneNumber
+        this.submit();
+        
+    })
+    
+})
 </script>
+
 @endsection

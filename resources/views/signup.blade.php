@@ -10,6 +10,11 @@
 <link
     href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
     rel="stylesheet">
+
+    <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
  
 @endsection
 
@@ -41,6 +46,15 @@
                                 <input type="text" class="form-control" placeholder="Your surname">
                             </div>
                         </div>
+                        <div class="col-md-12 mb-4">
+                            <div class="form-group">
+                                <div class="select-box">
+                                    <input id="phone" type="tel" name="phone" />
+                                </div>
+                                
+                            </div>
+                        </div>
+
                         <div class="col-md-12 mb-4">
                             <label class="form-label">Phone*</label>
                             <input type="text" class="form-control" placeholder="965-748-89-90">
@@ -74,5 +88,11 @@
     </div>
 </section>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    const input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+    });
+  </script>
 @endsection
