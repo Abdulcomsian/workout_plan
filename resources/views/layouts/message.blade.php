@@ -1,1 +1,1 @@
-{!! trim(str_replace("\n", "<br>" , $workout) , "<br>") !!}
+{!! trim(str_replace("<br>", "\n" , $workout) , "<br>") !!}
